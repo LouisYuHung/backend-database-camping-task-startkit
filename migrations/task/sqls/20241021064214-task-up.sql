@@ -124,7 +124,7 @@ DELETE FROM "SKILL" WHERE name = '空中瑜伽';
     -- 7. 授課連結設定`meeting_url`為 https://test-meeting.test.io
 
 INSERT INTO "COURSE" (user_id, skill_id, name, start_at, end_at, max_participants, meeting_url, created_at) VALUES 
-((SELECT id FROM "USER" WHERE email = 'lee2000@hexschooltest.io'), (SELECT id FROM "SKILL" WHERE name = '重訓'), '重訓基礎課', '2024-11-25 14:00:00', '2024-11-25 16:00:00', 10, 'https://test-meeting.test.io');
+((SELECT id FROM "USER" WHERE email = 'lee2000@hexschooltest.io'), (SELECT id FROM "SKILL" WHERE name = '重訓'), '重訓基礎課', '2024-11-25 14:00:00', '2024-11-25 16:00:00', 10, 'https://test-meeting.test.io', '2024-11-24 12:00:00');
 
 -- ████████  █████   █    █████ 
 --   █ █   ██    █  █     █     
@@ -145,8 +145,8 @@ INSERT INTO "COURSE" (user_id, skill_id, name, start_at, end_at, max_participant
         -- 3. 狀態`status` 設定為即將授課
 
 INSERT INTO "COURSE_BOOKING" (user_id, course_id, booking_at, status, created_at) VALUES 
-((SELECT id FROM "USER" WHERE email = 'wXlTq@hexschooltest.io'), (SELECT id FROM "COURSE" WHERE user_id = (SELECT id FROM "USER" WHERE email = 'lee2000@hexschooltest.io')), '2024-11-24 16:00:00', '即將授課'),
-((SELECT id FROM "USER" WHERE email = 'richman@hexschooltest.io'), (SELECT id FROM "COURSE" WHERE user_id = (SELECT id FROM "USER" WHERE email = 'lee2000@hexschooltest.io')), '2024-11-24 16:00:00', '即將授課');
+((SELECT id FROM "USER" WHERE email = 'wXlTq@hexschooltest.io'), (SELECT id FROM "COURSE" WHERE user_id = (SELECT id FROM "USER" WHERE email = 'lee2000@hexschooltest.io')), '2024-11-24 16:00:00', '即將授課', '2024-11-24 16:00:00'),
+((SELECT id FROM "USER" WHERE email = 'richman@hexschooltest.io'), (SELECT id FROM "COURSE" WHERE user_id = (SELECT id FROM "USER" WHERE email = 'lee2000@hexschooltest.io')), '2024-11-24 16:00:00', '即將授課', '2024-11-24 16:00:00');
 
 -- 5-2. 修改：`王小明`取消預約 `李燕容` 的課程，請在`COURSE_BOOKING`更新該筆預約資料：
     -- 1. 取消預約時間`cancelled_at` 設為2024-11-24 17:00:00
@@ -221,3 +221,4 @@ SELECT SUM(price_paid) AS "總營收" FROM "CREDIT_PURCHASE" WHERE purchase_at >
 SELECT COUNT(DISTINCT("COURSE_BOOKING".user_id)) AS "預約會員人數" FROM "COURSE_BOOKING" WHERE "COURSE_BOOKING".created_at >= '2024-11-01 00:00:00' AND "COURSE_BOOKING".created_at <= '2024-11-30 23:59:59' AND "COURSE_BOOKING".status != '課程已取消';
 
 -- 241207 第二次提交任務(Actions沒有開啟)
+-- 241207 第二次提交任務(INSERT未填寫created_at)
